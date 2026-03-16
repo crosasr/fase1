@@ -20,7 +20,7 @@ productos = [
     {"nombre": "Mesa",       "precio": 2800.00, "stock": 10},
     {"nombre": "Lámpara",    "precio":  450.00, "stock": 0},
 ]
-   
+
 for p in productos:
     print(f"{p['nombre']:<12} ${p['precio']:>10,.2f}   stock: {p['stock']}")
 
