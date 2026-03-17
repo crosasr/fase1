@@ -1,0 +1,10 @@
+def mostrar_menu():
+    print("\n=============================")
+    print("   GESTIÓN DE PRODUCTOS")
+    print("=============================")
+    print("1. Agregar producto")
+    print("2. Eliminar producto")
+    print("3. Listar productos")
+    print("4. Buscar producto")
+    print("5. Salir")
+    print("=============================")
