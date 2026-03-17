@@ -6,5 +6,6 @@ def mostrar_menu():
     print("2. Eliminar producto")
     print("3. Listar productos")
     print("4. Buscar producto")
-    print("5. Salir")
+    print("5. Reporte KPIs")
+    print("6. Salir")
     print("=============================")

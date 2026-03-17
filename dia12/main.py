@@ -1,12 +1,13 @@
 from validaciones import pedir_entero, pedir_flotante, pedir_opcion_menu
 from productos import agregar_producto, eliminar_producto, listar_productos, buscar_productos
 from menu import mostrar_menu
+from kpis import resumen_kpis
 
 productos = []
 
 while True:
     mostrar_menu()
-    opcion = pedir_opcion_menu()
+    opcion = pedir_opcion_menu(6)  # ahora son 6 opciones
 
     if opcion == "1":
         nombre = input("Nombre del producto: ")
@@ -35,14 +36,19 @@ while True:
                 print(f"  {p['nombre']:<12} ${p['precio']:,.2f}   stock: {p['stock']}")
 
     elif opcion == "5":
+        kpis = resumen_kpis(productos)
+        if not kpis:
+            print("⚠️  No hay productos registrados.")
+        else:
+            print("\n========================================")
+            print("         KPIs DE INVENTARIO")
+            print("========================================")
+            print(f"Total productos  : {kpis['total_productos']}")
+            print(f"Valor inventario : ${kpis['valor_inventario']:,.2f}")
+            print(f"Focos rojos      : {kpis['focos_rojos']}")
+            print(f"Más valioso      : {kpis['mas_valioso']}")
+            print("========================================")
+
+    elif opcion == "6":
         print("¡Hasta luego!")
         break
-'''
-
-
-
-### Compara el resultado
-```
-Dia06_07.py    → 1 archivo, 80+ líneas mezcladas
-dia12/main.py  → 20 líneas, solo orquesta
-'''
