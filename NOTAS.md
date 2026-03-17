@@ -485,4 +485,193 @@ Nunca confiar en que el usuario ingresará datos correctos.
 Siempre validar: tipo de dato, rango permitido, campos vacíos.
 El usuario nunca debe ver un traceback en pantalla.
 
-*Actualizar con cada fase completada.*
+
+---
+
+## DÍA 11 — Módulos e import
+
+### Qué es un módulo
+Un archivo `.py` con funciones reutilizables. Separa responsabilidades
+como HTML separa estructura, estilos y scripts.
+
+```
+sin módulos → todo en un archivo → código espagueti
+con módulos → cada archivo tiene una sola responsabilidad
+```
+
+### Formas de importar
+```python
+# Función específica
+from productos import clasificar_producto
+
+# Varias funciones
+from productos import clasificar_producto, estado_stock
+
+# Todo el módulo
+import productos
+productos.clasificar_producto(1350)   # requiere prefijo
+
+# Con alias
+import validaciones as val
+val.pedir_entero("Stock: ")
+```
+
+### Cuándo usar cada forma
+```
+from módulo import función  → pocas funciones específicas ✅ más común
+import módulo               → muchas funciones del mismo módulo
+import módulo as alias      → nombre largo o conflictos
+```
+
+### Error común
+```python
+from productos import clasificar_productox
+# ImportError: cannot import name 'clasificar_productox'
+# Did you mean: 'clasificar_producto'?
+```
+Python sugiere la corrección — Windsurf lo resalta antes de ejecutar.
+
+### Arquitectura modular para PyME
+```
+validaciones.py  → pedir_entero(), pedir_flotante(), pedir_opcion_menu()
+productos.py     → lógica de negocio (agregar, eliminar, buscar)
+kpis.py          → análisis (valor inventario, focos rojos, más valioso)
+menu.py          → presentación visual únicamente
+main.py          → orquesta todo, máximo 30 líneas
+```
+
+---
+
+## DÍAS 12-13 — Refactor modular
+
+### Qué es refactorizar
+Reescribir código existente para mejorarlo sin cambiar su comportamiento.
+Mismo resultado, mejor estructura.
+
+```
+Dia06_07.py → 80+ líneas mezcladas → difícil mantener
+dia12/      → 5 archivos, cada uno <30 líneas → fácil mantener
+```
+
+### Patrón completo de app modular
+```python
+# main.py — solo orquesta, no define nada
+from validaciones import pedir_entero, pedir_flotante, pedir_opcion_menu
+from productos import agregar_producto, eliminar_producto, listar_productos
+from menu import mostrar_menu
+from kpis import resumen_kpis
+
+productos = cargar_csv()
+
+while True:
+    mostrar_menu()
+    opcion = pedir_opcion_menu(6)
+    if opcion == "1":
+        ...
+```
+
+### pedir_opcion_menu con valor por defecto
+```python
+def pedir_opcion_menu(total_opciones=5):
+    opciones_validas = [str(i) for i in range(1, total_opciones + 1)]
+    while True:
+        opcion = input("Elige una opción: ")
+        if opcion in opciones_validas:
+            return opcion
+        print(f"⚠️  Opción no válida (1-{total_opciones})")
+```
+`total_opciones=5` por omisión — si el menú tiene más opciones se pasa el número.
+
+### lambda — función anónima en una línea
+```python
+# Encontrar el producto con mayor valor en inventario
+max(productos, key=lambda p: p["precio"] * p["stock"])
+```
+`lambda p:` define una función temporal sin nombre.
+Útil para operaciones simples de una sola vez.
+
+---
+
+## DÍA 14 — Archivos CSV
+
+### Qué es un CSV
+Comma Separated Values — texto plano con columnas separadas por comas.
+El formato más universal en datos de negocio.
+```
+nombre,precio,stock      ← encabezados
+Silla,1350.5,25          ← datos
+Mesa,2800.0,10
+```
+
+### Escribir CSV
+```python
+import csv
+
+with open("productos.csv", "w", newline="", encoding="utf-8") as f:
+    campos = ["nombre", "precio", "stock"]
+    writer = csv.DictWriter(f, fieldnames=campos)
+    writer.writeheader()          # fila de encabezados
+    writer.writerows(productos)   # todas las filas
+```
+
+### Leer CSV
+```python
+with open("productos.csv", "r", encoding="utf-8") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        productos.append({
+            "nombre": row["nombre"],
+            "precio": float(row["precio"]),  # CSV todo es string → convertir
+            "stock" : int(row["stock"])
+        })
+```
+**Regla:** CSV guarda todo como texto. Al leer siempre convertir
+`float()` para precios e `int()` para cantidades.
+
+### Verificar si el archivo existe
+```python
+import os
+
+if not os.path.exists("productos.csv"):
+    return []    # primera ejecución — archivo aún no existe
+```
+Sin esta validación el programa crashea la primera vez.
+
+### Patrón completo guardar/cargar
+```python
+def guardar_csv(productos, archivo="productos.csv"):
+    with open(archivo, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=["nombre", "precio", "stock"])
+        writer.writeheader()
+        writer.writerows(productos)
+
+def cargar_csv(archivo="productos.csv"):
+    if not os.path.exists(archivo):
+        return []
+    productos = []
+    with open(archivo, "r", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            productos.append({
+                "nombre": row["nombre"],
+                "precio": float(row["precio"]),
+                "stock" : int(row["stock"])
+            })
+    return productos
+```
+
+### CSV vs SQLite
+```
+CSV    → archivo de texto, simple, portable, sin consultas
+SQLite → base de datos real, consultas SQL, relaciones entre tablas
+```
+CSV para datos simples y portables. SQLite cuando necesitas
+filtrar, ordenar, relacionar — Fase 2.
+
+### Modos de apertura de archivos
+```
+"w"  → write    → crea o sobreescribe
+"r"  → read     → solo lectura
+"a"  → append   → agrega al final sin borrar
+```
+
+Fase completada
