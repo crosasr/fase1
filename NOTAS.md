@@ -401,4 +401,60 @@ def resumen_venta(cliente, items, vendedor="Sin asignar", descuento=0):
 Una función puede recibir una lista como parámetro y recorrerla
 internamente con for — no necesita saber cuántos elementos tiene.
 
+DÍA 10 — Scope y try/except
+Scope — dónde viven las variables
+pythonimpuesto = 0.16          # variable GLOBAL — vive en todo el programa
+
+def calcular_precio(precio):
+    resultado = precio * impuesto   # usa la global ✅
+    return resultado                # resultado solo existe aquí adentro
+
+print(impuesto)     # ✅ accesible — es global
+print(resultado)    # ❌ NameError — resultado es local, ya no existe
+Regla:
+Variable global  → declarada fuera de funciones → accesible desde cualquier lado
+Variable local   → declarada dentro de una función → desaparece al terminar
+La única forma de sacar un valor de una función es con return.
+
+try/except — programa que nunca se rompe
+Sin manejo de errores un input inválido mata el programa:
+pythonstock = int(input("Stock: "))   # usuario escribe "abc" → crash 💀
+Con try/except el programa atrapa el error y sigue vivo:
+pythontry:
+    valor = int(input("Stock: "))   # intenta esto
+except ValueError:
+    print("⚠️  Ingresa solo números enteros.")   # si falla, ejecuta esto
+Patrón completo para validar inputs
+Combina while True + try/except + validación de negativos:
+pythondef pedir_entero(mensaje):
+    while True:
+        try:
+            valor = int(input(mensaje))
+            if valor < 0:
+                print("⚠️  El valor no puede ser negativo.")
+                continue        # pide de nuevo
+            return valor        # solo sale si el valor es válido
+        except ValueError:
+            print("⚠️  Ingresa solo números enteros.")
+
+def pedir_flotante(mensaje):
+    while True:
+        try:
+            valor = float(input(mensaje))
+            if valor < 0:
+                print("⚠️  El valor no puede ser negativo.")
+                continue
+            return valor
+        except ValueError:
+            print("⚠️  Ingresa solo números.")
+Estas dos funciones se reutilizan en cualquier app — son las primeras candidatas a vivir en un módulo validaciones.py.
+Errores comunes que atrapa ValueError
+int("abc")      → ValueError
+int("12.5")     → ValueError  (int no acepta decimales)
+float("xyz")    → ValueError
+Programación defensiva aplicada
+Nunca confiar en que el usuario ingresará datos correctos.
+Siempre validar: tipo de dato, rango permitido, campos vacíos.
+El usuario nunca debe ver un traceback en pantalla.
+
 *Actualizar con cada fase completada.*
