@@ -75,7 +75,7 @@ App de escritorio funcional para una PyME con:
 
 ## 👤 Autor
 
-<img src="https://github.com/crosasr.png" width="150"/>
+<img src="assets/perfil.jpg" width="150" style="border-radius: 50%"/>
 
 **crosasr - César Victorio Rosas Ramos** — Desarrollador en formación especializado en soluciones para PyMEs mexicanas.
 
