@@ -39,7 +39,10 @@ Construir una base sólida en Python para desarrollar apps de gestión (inventar
 | `dia10.py` | Scope y try/except | variables locales/globales, validación de inputs |
 | `NOTAS.md` | Notas de aprendizaje | Conceptos explicados en lenguaje propio |
 | `PERFIL.md` | Perfil del proyecto | Contexto para Windsurf y herramientas de IA |
-
+| `dia09.py` | Funciones con valores por defecto | Resumen de venta con parámetros opcionales |
+| `dia10.py` | Scope y try/except | Validación de inputs — programa que nunca crashea |
+| `dia11/` | Módulos separados | Arquitectura modular: validaciones, productos y kpis |
+| `dia12/` | App modular completa + CSV | Menú interactivo con persistencia entre sesiones |
 ---
 
 ## 🛠️ Stack tecnológico
