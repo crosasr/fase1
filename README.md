@@ -77,9 +77,16 @@ App de escritorio funcional para una PyME con:
 
 <p align="center">
   <img src="assets/perfil.jpeg" width="150"/>
-  <br><br>
-  <h3>crosasr - César Victorio Rosas Ramos</h3>
+</p>
+
+<p align="center">
+  <h2>César Victorio Rosas Ramos</h2>
+</p>
+
+<p align="center">
   Desarrollador en formación especializado en soluciones para PyMEs mexicanas.
-  <br><br>
+</p>
+
+<p align="center">
   Python · Flet · SQLite · Automatización · MCP + IA
 </p>
