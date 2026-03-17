@@ -331,4 +331,74 @@ economicos = [p["nombre"] for p in productos if p["precio"] < 1000]
 | Windsurf | Copiloto — explicar errores, no escribir el código |
 
 ---
+
+## DÍA 8 — Funciones: parámetros y return
+
+### Estructura básica
+```python
+def nombre_funcion(parametro1, parametro2):
+    return resultado
+```
+
+- `def` → declara la función
+- parámetros → identificadores (los nombres)
+- argumentos → valores reales que se pasan al llamarla
+- `return` → el valor que entrega de vuelta, puede operarse
+
+### Regla clave
+Separar lógica en funciones evita repetir código y hace que
+funcione con 5 o 500 productos sin cambiar nada.
+```python
+def aplicar_descuento(precio, descuento):
+    return precio - (precio * descuento / 100)
+
+def clasificar_producto(precio):
+    if precio >= 3000:
+        return "Premium"
+    elif precio >= 1000:
+        return "Estándar"
+    else:
+        return "Económico"
+
+def estado_stock(stock):
+    if stock == 0:
+        return "❌ Sin stock"
+    elif stock <= 10:
+        return "⚠️  Stock bajo"
+    else:
+        return "✅ OK"
+```
+
+---
+
+## DÍA 9 — Funciones con valores por defecto
+
+### Parámetros opcionales
+```python
+def calcular_precio(precio, descuento=0):
+    return precio - (precio * descuento / 100)
+
+calcular_precio(1350.50)        # → 1350.50 (usa default)
+calcular_precio(1350.50, 10)    # → 1215.45 (sobreescribe default)
+```
+
+### Regla crítica
+Parámetros opcionales siempre al final — si van primero Python
+no sabe a qué parámetro asignar cada argumento → SyntaxError.
+```python
+def funcion(obligatorio, opcional=valor):   # ✅
+def funcion(opcional=valor, obligatorio):   # ❌ SyntaxError
+```
+
+### Función que se adapta sola
+```python
+def resumen_venta(cliente, items, vendedor="Sin asignar", descuento=0):
+    subtotal        = sum(p["precio"] * p["cantidad"] for p in items)
+    monto_descuento = subtotal * descuento / 100
+    total           = subtotal - monto_descuento
+```
+
+Una función puede recibir una lista como parámetro y recorrerla
+internamente con for — no necesita saber cuántos elementos tiene.
+
 *Actualizar con cada fase completada.*
