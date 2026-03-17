@@ -2,8 +2,12 @@ from validaciones import pedir_entero, pedir_flotante, pedir_opcion_menu
 from productos import agregar_producto, eliminar_producto, listar_productos, buscar_productos
 from menu import mostrar_menu
 from kpis import resumen_kpis
+from datos import guardar_csv, cargar_csv
 
 productos = []
+
+productos = cargar_csv()
+print(f"📂 {len(productos)} productos cargados.")
 
 while True:
     mostrar_menu()
@@ -50,5 +54,7 @@ while True:
             print("========================================")
 
     elif opcion == "6":
+        guardar_csv(productos)
+        print("💾 Productos guardados.")
         print("¡Hasta luego!")
         break
