@@ -80,7 +80,7 @@ App de escritorio funcional para una PyME con:
 </p>
 
 <p align="center">
-  <h2>César Victorio Rosas Ramos</h2>
+  <h2 align="center">César Victorio Rosas Ramos</h2>
 </p>
 
 <p align="center">
