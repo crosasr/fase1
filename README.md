@@ -76,7 +76,7 @@ App de escritorio funcional para una PyME con:
 ## 👤 Autor
 
 <p align="center">
-  <img src="assets/perfil.jpg" width="150" style="border-radius: 50%"/>
+  <img src="assets/perfil.jpeg" width="150" style="border-radius: 50%"/>
 </p>
 
 <p align="center">
