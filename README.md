@@ -75,6 +75,8 @@ App de escritorio funcional para una PyME con:
 
 ## 👤 Autor
 
-**crosasr** - **César Victorio Rosas Ramos** — Desarrollador en formación especializado en soluciones para PyMEs mexicanas.
+<img src="https://github.com/crosasr.png" width="150"/>
+
+**crosasr - César Victorio Rosas Ramos** — Desarrollador en formación especializado en soluciones para PyMEs mexicanas.
 
 Perfil en construcción: Python · Flet · SQLite · Automatización · MCP + IA
