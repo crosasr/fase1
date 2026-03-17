@@ -80,7 +80,7 @@ App de escritorio funcional para una PyME con:
 </p>
 
 <p align="center">
-  <b>crosasr - César Victorio Rosas Ramos</b> — Desarrollador en formación especializado en soluciones para PyMEs mexicanas.
+  <b>crosasr - César Victorio Rosas Ramos</b> </br> Desarrollador en formación especializado en soluciones para PyMEs mexicanas.
 </p>
 
 <p align="center">
